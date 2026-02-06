@@ -6,8 +6,9 @@
     font-family: "Segoe UI", sans-serif;
 }
 
+/* ================= BODY ================= */
 body {
-    height: 100vh;
+    min-height: calc(var(--vh) * 100);
     background: radial-gradient(circle at top, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
     color: white;
@@ -31,7 +32,7 @@ body::before {
     z-index: 0;
 }
 
-/* ================= BULAN SABIT (HALUS) ================= */
+/* ================= BULAN ================= */
 body::after {
     content: "";
     position: fixed;
@@ -50,7 +51,7 @@ body::after {
     z-index: 0;
 }
 
-/* ================= BINTANG JATUH ================= */
+/* ================= SHOOTING STAR ================= */
 .shooting-star {
     position: fixed;
     top: -50px;
@@ -64,17 +65,17 @@ body::after {
     z-index: 1;
 }
 
-.shooting-star:nth-of-type(1) { left: 20%; animation-delay: 0s; }
-.shooting-star:nth-of-type(2) { left: 55%; animation-delay: 2.5s; }
-.shooting-star:nth-of-type(3) { left: 80%; animation-delay: 5s; }
+.shooting-star:nth-of-type(1){left:20%;animation-delay:0s;}
+.shooting-star:nth-of-type(2){left:55%;animation-delay:2.5s;}
+.shooting-star:nth-of-type(3){left:80%;animation-delay:5s;}
 
 @keyframes shooting {
-    0%   { transform: translate(0,0) rotate(-45deg); opacity: 0; }
-    10%  { opacity: 1; }
-    100% { transform: translate(-700px,700px) rotate(-45deg); opacity: 0; }
+    0%{transform:translate(0,0) rotate(-45deg);opacity:0;}
+    10%{opacity:1;}
+    100%{transform:translate(-700px,700px) rotate(-45deg);opacity:0;}
 }
 
-/* ================= AWAN TIPIS ================= */
+/* ================= CLOUD ================= */
 .cloud {
     position: fixed;
     width: 320px;
@@ -82,40 +83,30 @@ body::after {
     background: rgba(255,255,255,0.06);
     filter: blur(22px);
     border-radius: 100px;
-    animation: cloudMove 160s linear infinite;
+    animation: cloudMove 180s linear infinite;
     pointer-events: none;
     z-index: 1;
 }
 
-.cloud:nth-of-type(1) { top: 25%; opacity: 0.06; animation-duration: 160s; }
-.cloud:nth-of-type(2) { top: 45%; opacity: 0.05; animation-duration: 200s; }
-.cloud:nth-of-type(3) { top: 65%; opacity: 0.04; animation-duration: 240s; }
+.cloud:nth-of-type(1){top:25%;opacity:0.06;}
+.cloud:nth-of-type(2){top:45%;opacity:0.05;animation-duration:220s;}
+.cloud:nth-of-type(3){top:65%;opacity:0.04;animation-duration:260s;}
 
 @keyframes cloudMove {
-    from { left: -40%; }
-    to   { left: 120%; }
-}
-
-/* ================= ANIMASI ================= */
-@keyframes starsMove {
-    from { transform: translateY(0); }
-    to   { transform: translateY(-300px); }
-}
-
-@keyframes twinkle {
-    0%,100% { opacity: 0.6; }
-    50%     { opacity: 1; }
+    from{left:-40%;}
+    to{left:120%;}
 }
 
 /* ================= CONTAINER ================= */
 .container {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(var(--vh) * 100);
     z-index: 2;
+    overflow: hidden;
 }
 
-/* Slide */
+/* ================= SLIDE ================= */
 .slide {
     position: absolute;
     inset: 0;
@@ -123,6 +114,8 @@ body::after {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding: 80px 20px 140px; /* ruang tombol */
     opacity: 0;
     transition: opacity 1s ease;
     pointer-events: none;
@@ -135,39 +128,38 @@ body::after {
     z-index: 3;
 }
 
-/* Image */
+/* ================= IMAGE ================= */
 .slide img {
     width: 260px;
     max-width: 80%;
     border-radius: 14px;
     box-shadow: 0 0 30px rgba(255,255,255,0.25);
     margin-bottom: 20px;
-    z-index: 4;
 }
 
-/* Video */
+/* ================= VIDEO ================= */
 .video {
     width: 100%;
-    max-height: 60vh;
+    max-height: 50vh;
     object-fit: contain;
     border-radius: 12px;
     margin-bottom: 20px;
     background: black;
 }
 
-/* Text */
+/* ================= TEXT ================= */
 .text {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     text-align: center;
-    max-width: 80%;
+    max-width: 85%;
     line-height: 1.6;
     opacity: 0.9;
-    animation: fadeUp 1.5s ease;
+    animation: fadeUp 1.2s ease;
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from{opacity:0;transform:translateY(15px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
 /* ================= BUTTON ================= */
@@ -179,24 +171,15 @@ body::after {
     background: rgba(255,255,255,0.18);
     color: white;
     cursor: pointer;
-
-    appearance: none;
-    -webkit-appearance: none;
-
     backdrop-filter: blur(10px);
-    transition: background 0.3s, transform 0.2s;
-}
-
-#startBtn:hover {
-    background: rgba(255,255,255,0.35);
-    transform: scale(1.05);
 }
 
 #nextBtn {
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
-    z-index: 5;
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom) + 20px);
+    right: 20px;
+    z-index: 9999;
+
     padding: 12px 26px;
     border: none;
     border-radius: 25px;
@@ -204,24 +187,24 @@ body::after {
     color: white;
     cursor: pointer;
     backdrop-filter: blur(6px);
-    transition: 0.3s;
 }
 
-#nextBtn:hover {
-    background: rgba(255,255,255,0.3);
-    transform: scale(1.05);
+/* ================= MOBILE ================= */
+@media (max-width:600px){
+    body::after{
+        width:90px;
+        height:90px;
+        top:50px;
+        right:30px;
+    }
+    .text{font-size:0.95rem;}
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 600px) {
-    body::after {
-        width: 90px;
-        height: 90px;
-        top: 60px;
-        right: 40px;
-    }
-
-    .text {
-        font-size: 0.95rem;
-    }
+@keyframes starsMove {
+    from{transform:translateY(0);}
+    to{transform:translateY(-300px);}
+}
+@keyframes twinkle {
+    0%,100%{opacity:0.6;}
+    50%{opacity:1;}
 }
