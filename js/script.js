@@ -1,3 +1,20 @@
+/* ================================
+   FIX HEIGHT MOBILE (WAJIB)
+================================ */
+function setVH() {
+    document.documentElement.style.setProperty(
+        "--vh",
+        window.innerHeight * 0.01 + "px"
+    );
+}
+
+window.addEventListener("load", setVH);
+window.addEventListener("resize", setVH);
+
+
+/* ================================
+   STORY SCRIPT
+================================ */
 document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slide");
     const nextBtn = document.getElementById("nextBtn");
