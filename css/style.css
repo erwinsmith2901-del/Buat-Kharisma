@@ -1,4 +1,4 @@
-/* Reset dasar */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +13,101 @@ body {
     color: white;
 }
 
-/* Container utama */
+/* ================= BINTANG ================= */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(1px 1px at 10% 20%, white, transparent),
+        radial-gradient(1px 1px at 30% 80%, white, transparent),
+        radial-gradient(1.5px 1.5px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 70% 30%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent);
+    background-size: 180px 180px;
+    opacity: 0.7;
+    animation: starsMove 90s linear infinite, twinkle 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ================= BULAN SABIT (HALUS) ================= */
+body::after {
+    content: "";
+    position: fixed;
+    top: 80px;
+    right: 120px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 38% 50%, #0b0f17 52%, transparent 53%),
+        #f5f5f5;
+    box-shadow:
+        0 0 25px rgba(255,255,255,0.4),
+        0 0 60px rgba(255,255,255,0.25);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ================= BINTANG JATUH ================= */
+.shooting-star {
+    position: fixed;
+    top: -50px;
+    width: 140px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    opacity: 0;
+    transform: rotate(-45deg);
+    animation: shooting 7s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.shooting-star:nth-of-type(1) { left: 20%; animation-delay: 0s; }
+.shooting-star:nth-of-type(2) { left: 55%; animation-delay: 2.5s; }
+.shooting-star:nth-of-type(3) { left: 80%; animation-delay: 5s; }
+
+@keyframes shooting {
+    0%   { transform: translate(0,0) rotate(-45deg); opacity: 0; }
+    10%  { opacity: 1; }
+    100% { transform: translate(-700px,700px) rotate(-45deg); opacity: 0; }
+}
+
+/* ================= AWAN TIPIS ================= */
+.cloud {
+    position: fixed;
+    width: 320px;
+    height: 90px;
+    background: rgba(255,255,255,0.06);
+    filter: blur(22px);
+    border-radius: 100px;
+    animation: cloudMove 160s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cloud:nth-of-type(1) { top: 25%; opacity: 0.06; animation-duration: 160s; }
+.cloud:nth-of-type(2) { top: 45%; opacity: 0.05; animation-duration: 200s; }
+.cloud:nth-of-type(3) { top: 65%; opacity: 0.04; animation-duration: 240s; }
+
+@keyframes cloudMove {
+    from { left: -40%; }
+    to   { left: 120%; }
+}
+
+/* ================= ANIMASI ================= */
+@keyframes starsMove {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-300px); }
+}
+
+@keyframes twinkle {
+    0%,100% { opacity: 0.6; }
+    50%     { opacity: 1; }
+}
+
+/* ================= CONTAINER ================= */
 .container {
     position: relative;
     width: 100%;
@@ -35,94 +129,62 @@ body {
     z-index: 1;
 }
 
-/* Slide aktif */
 .slide.active {
     opacity: 1;
     pointer-events: auto;
     z-index: 3;
 }
 
-/* Gambar */
+/* Image */
 .slide img {
     width: 260px;
     max-width: 80%;
     border-radius: 14px;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 30px rgba(255,255,255,0.25);
     margin-bottom: 20px;
-    position: relative;
     z-index: 4;
 }
 
-/* Teks */
+/* Video */
+.video {
+    width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    background: black;
+}
+
+/* Text */
 .text {
     font-size: 1.1rem;
     text-align: center;
     max-width: 80%;
     line-height: 1.6;
     opacity: 0.9;
+    animation: fadeUp 1.5s ease;
 }
 
-/* Tombol Next */
-#nextBtn {
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
-    z-index: 5;
-    padding: 12px 26px;
-    border: none;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    transition: background 0.3s, transform 0.2s;
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-#nextBtn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
-}
-
-/* Bintang */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-        radial-gradient(1px 1px at 20% 30%, white, transparent),
-        radial-gradient(1px 1px at 80% 20%, white, transparent),
-        radial-gradient(1px 1px at 40% 70%, white, transparent),
-        radial-gradient(1px 1px at 70% 80%, white, transparent),
-        radial-gradient(1px 1px at 50% 50%, white, transparent);
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    opacity: 0.6;
-    animation: stars 60s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Animasi bintang */
-@keyframes stars {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-200px);
-    }
-}
-
+/* ================= BUTTON ================= */
 #startBtn {
-    padding: 14px 36px;
+    padding: 14px 40px;
     border-radius: 30px;
     border: none;
     font-size: 1rem;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.18);
     color: white;
-    backdrop-filter: blur(8px);
     cursor: pointer;
-    transition: 0.3s;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    backdrop-filter: blur(10px);
+    transition: background 0.3s, transform 0.2s;
 }
 
 #startBtn:hover {
@@ -130,57 +192,51 @@ body::before {
     transform: scale(1.05);
 }
 
-.text {
-    animation: fadeUp 1.5s ease;
+#nextBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: 0.3s;
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+#nextBtn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
 }
 
-.images {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
+.slide {
+    z-index: 1;
 }
 
-.images img {
-    width: 160px;
-    max-width: 40vw;
-    border-radius: 12px;
-    object-fit: cover;
+.slide.active {
+    z-index: 3;
 }
 
+video {
+    max-width: 90%;
+    border-radius: 14px;
+    z-index: 2;
+}
+
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
-    .slide img {
-        width: 70vw;
-        max-height: 40vh;
+    body::after {
+        width: 90px;
+        height: 90px;
+        top: 60px;
+        right: 40px;
     }
 
     .text {
         font-size: 0.95rem;
     }
-
-    #nextBtn {
-        bottom: 20px;
-        right: 20px;
-        padding: 10px 20px;
-    }
-}
-
-.video {
-    width: 100%;
-    max-height: 60vh;
-    object-fit: contain; /* ini kuncinya */
-    border-radius: 12px;
-    margin-bottom: 20px;
-    background: black;
 }
